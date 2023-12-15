@@ -1,0 +1,72 @@
+
+
+<!-- Fiche Produit -->
+<div *ngIf="editMode" class="product-form">
+  <h1>Fiche Produit</h1>
+  <form #produitForm="ngForm" (ngSubmit)="validerFormulaire(produitForm)">
+    <table>
+      <tr>
+        <td> Id: </td>
+        <td><input id="id" name="id" type="text" [(ngModel)]="produitCourant.id" required /></td>
+      </tr>
+      <tr>
+        <td> Code: </td>
+        <td><input type="text" name="code" [(ngModel)]="produitCourant.code" /></td>
+      </tr>
+      <tr>
+        <td> Désignation: </td>
+        <td><input type="text" name="designation" [(ngModel)]="produitCourant.designation" /></td>
+      </tr>
+      <tr>
+        <td> Prix: </td>
+        <td><input type="text" name="prix" [(ngModel)]="produitCourant.prix" /></td>
+      </tr>
+      <tr>
+        <td> Catégorie: </td>
+        <td>
+          <select name="categorie" [(ngModel)]="produitCourant.categorie" required>
+            <option *ngFor="let cat of categories" [ngValue]="cat" [selected]="cat.id === produitCourant.categorie?.id">{{ cat.libelle }}</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td [align]="'center'" colspan="2">
+          <input type="submit" value="Valider" [disabled]="!produitForm.form.valid" />
+          <button type="button" (click)="annulerEdition()">Annuler</button>
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+
+<!-- Liste des Produits -->
+<div class="product-list">
+  <h1>Liste des Produits</h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Id</th><th>Code</th><th>Désignation</th><th>Prix</th><th>Catégorie</th>
+        <th colspan="2">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of produits">
+        <td>{{ p.id }}</td>
+        <td>{{ p.code }}</td>
+        <td>{{ p.designation }}</td>
+        <td>{{ p.prix }}</td>
+        <td>{{ p.categorie?.libelle }}</td>
+        <td>
+          <button (click)="editerProduit(p)" class="btn btn-primary">
+            <i class="bi bi-pencil"></i> Editer
+          </button>
+        </td>
+        <td>
+          <button (click)="supprimerProduit(p)" class="btn btn-danger">
+            <i class="bi bi-trash"></i> Supprimer
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

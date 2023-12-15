@@ -1,0 +1,22 @@
+<h1>Formulaire d'Ajout de Produit</h1>
+<form (ngSubmit)="validerFormulaire()" #produitForm="ngForm">
+    <div class="form-group">
+        <label for="code">Code:</label>
+        <input type="text" class="form-control" id="code" name="code" [(ngModel)]="nouveauProduit.code" required>
+    </div>
+    <div class="form-group">
+        <label for="designation">Désignation:</label>
+        <input type="text" class="form-control" id="designation" name="designation" [(ngModel)]="nouveauProduit.designation" required>
+    </div>
+    <div class="form-group">
+        <label for="prix">Prix:</label>
+        <input type="number" class="form-control" id="prix" name="prix" [(ngModel)]="nouveauProduit.prix" required>
+    </div>
+    <select class="form-control" id="categorie" name="categorie" [(ngModel)]="nouveauProduit.categorie" required>
+      <option [ngValue]="null" disabled selected>Sélectionnez une catégorie</option>
+      <option *ngFor="let categorie of categories" [ngValue]="categorie">{{ categorie.libelle }}</option>
+    </select>
+    
+    <button type="submit" class="btn btn-primary">Ajouter</button>
+    
+</form>
